@@ -5,13 +5,13 @@ classdef Decoder
             image = imread(imagePath);
             [height, width, channels] = size(image);
             
-            % variable'lari ayarlama
-            pixel_count = 1; % Her 3 pixelde kontrol bitini check et
-            string = ''; % binary veriyi tutucak 
-            endFlag = false; %  mesaj sonuna gelindiğini belirten işaret-flag
-            controlBit = '1'; % Control bit (son pixel '1' ise control bit)
+            % declaring variables
+            pixel_count = 1; % Check the control bit every 3 pixels
+            string = ''; % Holds binary data 
+            endFlag = false; %  a flag indicating the end of the message
+            controlBit = '1'; % Control bit (if the last pixel is '1', then it is a control bit)
 
-            % Her pixeli dönerek veriyi çıkarıyo
+            % extract the data by iterating through each pixel
             for i = 1:width
                 if endFlag
                     break;
@@ -55,7 +55,7 @@ classdef Decoder
                 end
             end
 
-            % Split the binary string into 8-bit chunks and convert to characters
+            % split the binary string into 8-bit chunks and convert to characters
             binaryChunks = Decoder.split(string, 8);
             decodedMessage = '';
             for i = 1:length(binaryChunks)
@@ -64,7 +64,7 @@ classdef Decoder
         end
         
         function result = split(input, size)
-            % Helper function to split a string into chunks of specified size
+            % helper function to split a string into chunks of specified size
             result = cell(1, ceil(length(input) / size));
             for i = 1:ceil(length(input) / size)
                 startIdx = (i - 1) * size + 1;
