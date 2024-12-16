@@ -1,8 +1,8 @@
 Encoder.encode('image.png', 'secret.txt');
-disp('-Veri Gizlendi-');
+disp('-Data has been hidden-');
 
 
 decodedMessage = Decoder.decode('modified.png');
-disp('Gizli Mesaj:');
+disp('Secret Message:');
 disp(decodedMessage);
 
